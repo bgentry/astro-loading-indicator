@@ -88,10 +88,12 @@ const styles = `.${className} {
   setOpacity(opacity)
 
   document.addEventListener("DOMContentLoaded", () => {
+    console.log('DOMContentLoaded')
     document.body.prepend(element)
   })
 
   document.addEventListener("astro:before-preparation", () => {
+    console.log('astro:before-preparation')
     thresholdTimeout = setTimeout(() => {
       setOpacity(1)
       trickleInterval = window.setInterval(() => {
@@ -101,6 +103,7 @@ const styles = `.${className} {
   })
 
   document.addEventListener("astro:before-swap", (ev) => {
+    console.log('astro:before-swap')
     if (!thresholdTimeout) {
       return
     }
@@ -120,7 +123,12 @@ const styles = `.${className} {
     }, animationDuration * 2)
   })
 
+  document.addEventListener("astro:after-swap", () => {
+    console.log('astro:after-swap')
+  })
+
   document.addEventListener('astro:page-load', () => {
+    console.log('astro:page-load')
     setOpacity(0)
     if (trickleInterval) {
       window.clearInterval(trickleInterval)
