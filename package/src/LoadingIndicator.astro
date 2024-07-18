@@ -119,5 +119,21 @@ const styles = `.${className} {
       setProgress(0.25)
     }, animationDuration * 2)
   })
+
+  document.addEventListener('astro:page-load', () => {
+    setOpacity(0)
+    if (trickleInterval) {
+      window.clearInterval(trickleInterval)
+      trickleInterval = undefined
+    }
+
+    if (thresholdTimeout) {
+      window.clearTimeout(thresholdTimeout)
+      thresholdTimeout = undefined
+    }
+
+    window.clearInterval(trickleInterval)
+    trickleInterval = undefined
+  }, { once: true });
 })()
 </script>
